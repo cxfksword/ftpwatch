@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="theme1">#FF2AD181</color>
+    <color name="theme1_light">#4D2AD181</color>
+    <color name="theme2">#FFEA6075</color>
+    <color name="theme2_light">#4DEA6075</color>
+    <color name="theme3">#FFFFAF00</color>
+    <color name="theme3_light">#4DFFAF00</color>
+    <color name="theme4">#FF38D7D5</color>
+    <color name="theme4_light">#4D38D7D5</color>
+    <color name="theme5">#FF0091FF</color>
+    <color name="theme5_light">#4D0091FF</color>
+    <color name="theme6">#FF6E5CFF</color>
+    <color name="theme6_light">#4D6E5CFF</color>
+    <color name="theme7">#FF86DE31</color>
+    <color name="theme7_light">#4D86DE31</color>
+    <color name="theme8">#FFFF7D08</color>
+    <color name="theme8_light">#4DFF7D08</color>
+    <color name="theme9">#FFF9391F</color>
+    <color name="theme9_light">#4DF9391F</color>
+</resources>

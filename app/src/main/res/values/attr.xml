@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HeyToggleButton">
+        <!--开关关闭后按钮的背景色-->
+        <attr name="offColor" format="color" />
+        <!--开关打开后按钮的背景色，因为目前的需求是开关的背景色要渐变，所有此值无需设置，只 需要设置渐变的开始颜色和结束颜色即可.-->
+        <attr name="onColor" format="color" /> <!--按钮上的图片-->
+        <attr name="iconDrawable" format="reference" /> <!--开关中图片的内边距-->
+        <attr name="icon_padding" format="integer" /> <!--渐变角度-->
+        <attr name="onColorAngle" format="integer" /> <!--渐变开始颜色-->
+        <attr name="onColorStartColor" format="color" /> <!--渐变开始百分比-->
+        <attr name="onColorStartPercent" format="integer" /> <!--渐变结束颜色-->
+        <attr name="onColorEndColor" format="color" /> <!--渐变结束百分比-->
+        <attr name="onColorEndPercent" format="integer" />
+    </declare-styleable>
+</resources>

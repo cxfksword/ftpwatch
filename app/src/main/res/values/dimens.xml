@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="xxxl_body">101sp</dimen>
+    <dimen name="xxl_body">84sp</dimen>
+    <dimen name="xl_body">69sp</dimen>
+    <dimen name="l_body">57sp</dimen>
+    <dimen name="m_body">46sp</dimen>
+    <dimen name="s_body">38sp</dimen>
+    <dimen name="xl_title">31sp</dimen>
+    <dimen name="l_title">26sp</dimen>
+    <dimen name="m_title">21sp</dimen>
+    <dimen name="s_title">17sp</dimen>
+    <dimen name="l_desription">17sp</dimen>
+    <dimen name="m_desription">14sp</dimen>
+    <dimen name="s_desription">12sp</dimen>
+    <dimen name="caption">9sp</dimen>
+
+
+    <!--正文距离屏幕左右边距-->
+    <dimen name="hey_content_horizontal_distance">10dp</dimen> <!--默认正文文字大小-->
+    <dimen name="hey_default_textSize">17sp</dimen> <!--默认摘要文字大小-->
+    <dimen name="group_title_text_size">14sp</dimen> <!--单行列表默认高度-->
+    <dimen name="hey_single_item_height">48dp</dimen> <!--多行列表默认高度-->
+    <dimen name="hey_multiple_item_height">56dp</dimen> <!--分组小标题默认高度-->
+    <dimen name="hey_group_title_height">30dp</dimen> <!--按钮默认高度-->
+    <dimen name="hey_button_height">48dp</dimen> <!--标题栏默认高度-->
+    <dimen name="hey_title_bar_height">36dp</dimen>
+
+    <!--间距-->
+    <dimen name="s_gap">4dp</dimen>
+    <dimen name="m_gap">8dp</dimen>
+    <dimen name="l_gap">12dp</dimen>
+    <dimen name="xl_gap">20dp</dimen>
+
+    <dimen name="s_size">30dp</dimen>
+    <dimen name="m_size">48dp</dimen>
+    <dimen name="l_size">56dp</dimen>
+    <dimen name="xl_size">72dp</dimen>
+    <dimen name="xxl_size">96dp</dimen>
+</resources>

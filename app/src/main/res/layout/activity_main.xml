@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.heytap.wearable.support.widget.HeyMainTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:heyText="@string/app_name" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            >
+
+                <com.heytap.wearable.support.widget.HeyGradientButton
+                    android:id="@+id/ftp_btn"
+                    android:layout_width="@dimen/xxl_size"
+                    android:layout_height="@dimen/xxl_size"
+                    android:layout_gravity="center"
+                    app:gradientButtonIconDrawable="@drawable/ic_start"
+                    app:gradientButtonBackground="@color/theme1"
+                    app:gradientButtonRadius="@dimen/xxl_size"
+                    style="@style/HeyGradientButtonStyle"
+                    android:onClick="toggleFtp"
+                    />
+
+
+            <TextView
+                android:id="@+id/ftp_status"
+                android:layout_marginTop="@dimen/m_gap"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="@dimen/l_desription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

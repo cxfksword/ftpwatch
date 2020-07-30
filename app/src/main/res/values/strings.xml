@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name" translatable="false">ftpwatch</string>
+    <string name="title_home">FTP服务</string>
+
+    <string name="ftp_status_not_running">FTP服务没有运行</string>
+    <string name="ftp_status_running_head">FTP服务运行于</string>
+    <string name="attention_ftp_is_running">需要先关闭FTP服务才可以修改设置</string>
+    <string name="attention_opening_ftp">正在打开FTP服务&#8230;</string>
+    <string name="attention_closing_ftp">正在关闭FTP服务&#8230;</string>
+    <string name="attention_invalid_port_number">请输入有效的数字</string>
+    <string name="attention_port_number_out_of_range">请输入1024~65535之间的数字</string>
+    <string name="attention_delete_confirm">再点击一次确定删除</string>
+    <string name="attention_changes_confirm">没有保存更改，再点击一次确认退出</string>
+    <string name="attention_no_user_account">请添加一个账户或者使用匿名模式来打开FTP服务</string>
+    <string name="notification_title">FTP服务正在运行</string>
+    <string name="permission_write_external">请授权存储读写权限</string>
+    <string name="item_charset">编码方式</string>
+    <string name="item_charset_att">如果出现乱码或者文件传输报错可尝试更改，通常建议保留默认选项</string>
+    <string name="item_charset_utf">UTF-8(默认)</string>
+    <string name="item_charset_gbk">GBK(简体中文)</string>
+    <string name="snackbar_action_goto">前往设置</string>
+
+    <string name="action_main_about">关于</string>
+
+    <string name="notification_channel_foreground_service">前台服务</string>
+
+    <string name="notification_ftp_start_error_title">FTP服务无法启动</string>
+    <string name="notification_ftp_start_errer_message">FTP服务无法启动，请检查网络、权限、运行模式</string>
+    
+    <string name="about_content">
+        这是一个基于Apache FtpServer框架开发的Android平台实现FTP文件共享的应用。\n\n
+        如果手机浏览器无法访问FTP协议链接，建议下载使用Chrome。\n\n
+        开源地址:\n
+        https://github.com/ghmxr/ftpshare \n\n
+
+        Apache FtpServer开源许可证:\n
+        http://www.apache.org/licenses \n\n
+
+        打赏作者:
+    </string>
+</resources>
