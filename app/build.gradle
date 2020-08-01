@@ -41,6 +41,8 @@ android {
                 // 如果是debug版本，加入beta版本号
                 if ('debug'.equals(variant.buildType.name)) {
                     fileName = fileName + "-${variant.buildType.name}.apk"
+                } else {
+                    fileName = fileName + ".apk"
                 }
                 output.outputFileName = fileName
             }
