@@ -11,7 +11,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
 
     }
 
@@ -25,6 +25,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    // 修改默认的打包的包名
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFileName
+            if (outputFile != null && outputFile.endsWith('.apk')) {
+                // 显示app名称+当前版本号
+                def fileName = "ftpwatch-v${variant.versionName}"
+                // 如果有渠道，显示渠道名""
+                if (variant.flavorName!=""){
+                    fileName = fileName + "-${variant.flavorName}"
+                }
+
+                // 如果是debug版本，加入beta版本号
+                if ('debug'.equals(variant.buildType.name)) {
+                    fileName = fileName + "-${variant.buildType.name}.apk"
+                }
+                output.outputFileName = fileName
+            }
+        }
+
+    }
+
 }
 
 dependencies {

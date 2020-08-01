@@ -9,16 +9,12 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.PowerManager;
 
-import android.view.View;
 import android.widget.Toast;
 
 
@@ -33,7 +29,6 @@ import com.trilib.ftpwatch.MainActivity;
 import com.trilib.ftpwatch.R;
 import com.trilib.ftpwatch.data.AccountItem;
 import com.trilib.ftpwatch.utils.CommonUtils;
-import com.trilib.ftpwatch.utils.MySQLiteOpenHelper;
 import com.trilib.ftpwatch.utils.NetworkStatusMonitor;
 
 import org.apache.ftpserver.FtpServer;
@@ -74,7 +69,7 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
         }
         final boolean isAnonymousMode=CommonUtils.getSettingSharedPreferences(this)
                 .getBoolean(Constants.PreferenceConsts.ANONYMOUS_MODE,Constants.PreferenceConsts.ANONYMOUS_MODE_DEFAULT);
-        final List<AccountItem>accountItems=getUserAccountList(this);
+        final List<AccountItem> accountItems= new ArrayList<AccountItem>();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -191,25 +186,7 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
 
     public static List<AccountItem> getUserAccountList(@NonNull Context context){
         List<AccountItem> list=new ArrayList<>();
-        try{
-            SQLiteDatabase db= new MySQLiteOpenHelper(context).getReadableDatabase();
-            Cursor cursor=db.rawQuery("select * from "+Constants.SQLConsts.TABLE_NAME,null);
-            while (cursor.moveToNext()){
-                try{
-                    AccountItem item=new AccountItem();
-                    item.id=cursor.getInt(cursor.getColumnIndex(Constants.SQLConsts.COLUMN_ID));
-                    item.account=cursor.getString(cursor.getColumnIndex(Constants.SQLConsts.COLUMN_ACCOUNT_NAME));
-                    item.password=cursor.getString(cursor.getColumnIndex(Constants.SQLConsts.COLUMN_PASSWORD));
-                    item.path=cursor.getString(cursor.getColumnIndex(Constants.SQLConsts.COLUMN_PATH));
-                    item.writable=cursor.getInt(cursor.getColumnIndex(Constants.SQLConsts.COLUMN_WRITABLE))==1;
-                    list.add(item);
-                }catch (Exception e){e.printStackTrace();}
-            }
-            cursor.close();
-            db.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
         return list;
     }
 
