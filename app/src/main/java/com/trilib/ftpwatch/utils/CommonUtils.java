@@ -44,7 +44,7 @@ public class CommonUtils {
     public static String getDisplayCharsetValue(@NonNull Context context){
         return context.getResources().getString(
                 Constants.Charset.CHAR_GBK.equals(getSettingSharedPreferences(context).getString(Constants.PreferenceConsts.CHARSET_TYPE,Constants.PreferenceConsts.CHARSET_TYPE_DEFAULT))?
-                        R.string.item_charset_gbk:R.string.item_charset_utf
+                        R.string.setting_charset_gbk:R.string.setting_charset_utf
         );
     }
 
@@ -58,24 +58,7 @@ public class CommonUtils {
         }catch (Exception e){e.printStackTrace();}
     }
 
-    /**
-     * 向activity发送请求读写权限的snackBar
-     */
-    public static void showSnackBarOfRequestingWritingPermission(@NonNull final Activity activity){
-        Snackbar snackbar=Snackbar.make(activity.findViewById(android.R.id.content),
-                activity.getResources().getString(R.string.permission_write_external),
-                Snackbar.LENGTH_SHORT);
-        snackbar.setAction(activity.getResources().getString(R.string.snackbar_action_goto), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                intent.setData(Uri.fromParts("package", activity.getApplication().getPackageName(), null));
-                activity.startActivity(intent);
-            }
-        });
-        snackbar.show();
-    }
+
 
     /**
      * 判断是否为匿名模式

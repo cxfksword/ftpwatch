@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".OptionActivity">
+
+
+    <com.heytap.wearable.support.widget.HeyBackTitleBar
+        android:id="@+id/option_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:heyText="@string/title_charset" />
+
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.heytap.wearable.support.widget.HeyNumberPicker
+            android:id="@+id/option_picker"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <com.heytap.wearable.support.widget.HeyTextView
+            android:textSize="@dimen/m_desription"
+            android:textColor="@android:color/white"
+            android:id="@+id/unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_140"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <com.heytap.wearable.support.widget.HeyShapeButton
+        android:id="@+id/ok"
+        android:layout_width="@dimen/dp_185"
+        android:layout_height="@dimen/m_size"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dp_9"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="clickOk"
+        android:text="@android:string/ok"
+        android:textSize="@dimen/s_title"
+        app:heyBackgroundColor="#33ffffff"
+        app:heyCornerRadius="@dimen/m_size" />
+
+
+</LinearLayout>

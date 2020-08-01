@@ -105,8 +105,8 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
 
     @Override
     public void onNetworkStatusRefreshed() {
-        makeThisForeground(getResources().getString(R.string.notification_title),
-                getResources().getString(R.string.ftp_status_running_head)+ CommonUtils.getFTPServiceDisplayAddress(this));
+//        makeThisForeground(getResources().getString(R.string.notification_title),
+//                getResources().getString(R.string.ftp_status_running_head)+ CommonUtils.getFTPServiceDisplayAddress(this));
     }
 
     @Override
@@ -261,7 +261,7 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
                 manager.createNotificationChannel(channel);
             }
             NotificationCompat.Builder builder=new NotificationCompat.Builder(this,"default");
-            builder.setSmallIcon(R.drawable.ic_launcher_app);
+            builder.setSmallIcon(R.mipmap.ic_launcher);
             builder.setContentTitle(title);
             builder.setContentText(content);
             builder.setContentIntent(PendingIntent.getActivity(this,0,new Intent(this, MainActivity.class),PendingIntent.FLAG_UPDATE_CURRENT));

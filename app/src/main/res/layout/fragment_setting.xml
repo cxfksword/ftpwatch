@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="top"
+    tools:context=".fragment.SettingFragment">
+
+
+        <com.heytap.wearable.support.widget.HeyMainTitleBar
+            android:id="@+id/setting_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:heyText="@string/title_setting" />
+
+
+        <com.heytap.wearable.support.widget.HeyMultipleDefaultItem
+            android:id="@+id/setting_port"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:heyText="@string/setting_port"
+            app:heySummaryText=""
+            app:heyPrimaryImage="@drawable/hey_arrow"
+        />
+
+        <com.heytap.wearable.support.widget.HeyMultipleDefaultItem
+            android:id="@+id/settting_charset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:heyText="@string/setting_charset"
+            app:heySummaryText=""
+            app:heyPrimaryImage="@drawable/hey_arrow"
+            />
+
+        <com.heytap.wearable.support.widget.HeySingleDefaultItem
+            android:id="@+id/about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:heyPrimaryImage="@drawable/hey_arrow"
+            app:heyText="@string/action_about"/>
+</LinearLayout>

@@ -6,48 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.heytap.wearable.support.widget.HeyMainTitleBar
-        android:id="@+id/titlebar"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:heyText="@string/app_name" />
-
-    <LinearLayout
+        android:layout_height="match_parent" />
+    <com.heytap.wearable.support.widget.pageindicator.HeyPageIndicator
+        android:id="@+id/indicator"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal"
-        >
-
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_vertical"
-            >
-
-                <com.heytap.wearable.support.widget.HeyGradientButton
-                    android:id="@+id/ftp_btn"
-                    android:layout_width="@dimen/xxl_size"
-                    android:layout_height="@dimen/xxl_size"
-                    android:layout_gravity="center"
-                    app:gradientButtonIconDrawable="@drawable/ic_start"
-                    app:gradientButtonBackground="@color/theme1"
-                    app:gradientButtonRadius="@dimen/xxl_size"
-                    style="@style/HeyGradientButtonStyle"
-                    android:onClick="toggleFtp"
-                    />
-
-
-            <TextView
-                android:id="@+id/ftp_status"
-                android:layout_marginTop="@dimen/m_gap"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="@dimen/l_desription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_height="24dp"
+        android:layout_gravity="bottom|center"
+        app:dotColor="@color/black"
+        app:dotSize="6dp"
+        app:dotSpacing="3dp"
+        app:dotStrokeWidth="0.7dp"
+        app:dotCornerRadius="3dp"
+        app:traceDotColor="@color/white" />
 </FrameLayout>

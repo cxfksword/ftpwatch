@@ -6,6 +6,9 @@ import com.trilib.ftpwatch.utils.StorageUtil;
 
 
 public class Constants {
+    public static class IntentDataKey {
+        public static final String OPTION_TYPE = "option_type";
+    }
     public static class SQLConsts{
         public static final String SQL_USERS_FILENAME ="ftp_accounts.db";
         public static final int SQL_VERSION=1;
@@ -51,7 +54,7 @@ public class Constants {
          * this stands for a string value
          */
         public static final String CHARSET_TYPE ="charset_type";
-        public static final String CHARSET_TYPE_DEFAULT ="UTF-8";
+        public static final String CHARSET_TYPE_DEFAULT = Charset.CHAR_UTF;
         /**
          * int value
          */
@@ -80,11 +83,19 @@ public class Constants {
         public static final String AUTO_STOP_VALUE="auto_stop_value";
         public static final int AUTO_STOP_VALUE_DEFAULT=600;
 
+
     }
 
     public static class Charset{
         public static final String CHAR_UTF="UTF-8";
         public static final String CHAR_GBK="GBK";
+        public static final String[] STRING_ARRAY = new String[] {CHAR_UTF, CHAR_GBK};
+
+    }
+
+    public static class RequestCode{
+        public static final int CHARSET = 1;
+        public static final int PORT = 2;
     }
 
 }

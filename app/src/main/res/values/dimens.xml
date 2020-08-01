@@ -26,6 +26,7 @@
     <dimen name="hey_group_title_height">30dp</dimen> <!--按钮默认高度-->
     <dimen name="hey_button_height">48dp</dimen> <!--标题栏默认高度-->
     <dimen name="hey_title_bar_height">36dp</dimen>
+    <dimen name="status_tips_height">100dp</dimen>
 
     <!--间距-->
     <dimen name="s_gap">4dp</dimen>
@@ -38,4 +39,8 @@
     <dimen name="l_size">56dp</dimen>
     <dimen name="xl_size">72dp</dimen>
     <dimen name="xxl_size">96dp</dimen>
+
+    <dimen name="dp_140">140dp</dimen>
+    <dimen name="dp_185">185dp</dimen>
+    <dimen name="dp_9">9dp</dimen>
 </resources>
