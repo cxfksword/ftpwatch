@@ -34,7 +34,7 @@
             app:heyPrimaryImage="@drawable/hey_arrow"
             />
 
-        <com.heytap.wearable.support.widget.HeySingleDefaultItem
+        <com.heytap.wearable.support.widget.HeyMultipleDefaultItem
             android:id="@+id/about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

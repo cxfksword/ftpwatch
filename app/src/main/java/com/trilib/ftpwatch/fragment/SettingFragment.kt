@@ -13,13 +13,14 @@ import com.heytap.wearable.support.widget.HeyMultipleDefaultItem
 import com.heytap.wearable.support.widget.HeySingleDefaultItem
 import com.heytap.wearable.support.widget.HeyToast
 import com.trilib.ftpwatch.*
+import com.trilib.ftpwatch.utils.CommonUtils
 import com.trilib.ftpwatch.utils.SettingManager
 
 class SettingFragment : Fragment(), View.OnClickListener {
 
     private var settingPort : HeyMultipleDefaultItem? = null
     private var settingChartset : HeyMultipleDefaultItem? = null
-    private var settingAbout : HeySingleDefaultItem? = null
+    private var settingAbout : HeyMultipleDefaultItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,11 +31,12 @@ class SettingFragment : Fragment(), View.OnClickListener {
         val v = inflater.inflate(R.layout.fragment_setting, container, false)
         settingPort = v.findViewById<HeyMultipleDefaultItem>(R.id.setting_port)
         settingChartset = v.findViewById<HeyMultipleDefaultItem>(R.id.settting_charset)
-        settingAbout = v.findViewById<HeySingleDefaultItem>(R.id.about)
+        settingAbout = v.findViewById<HeyMultipleDefaultItem>(R.id.about)
 
         val settingMgr = SettingManager.build(context!!);
         settingPort!!.summaryTextView.text = settingMgr.getInt(Constants.PreferenceConsts.PORT_NUMBER, Constants.PreferenceConsts.PORT_NUMBER_DEFAULT).toString()
         settingChartset!!.summaryTextView.text = settingMgr.getString(Constants.PreferenceConsts.CHARSET_TYPE, Constants.PreferenceConsts.CHARSET_TYPE_DEFAULT)
+        settingAbout!!.summaryTextView.text = "v" + CommonUtils.getAppVersionName(context!!)
 
         settingPort!!.setOnClickListener(this)
         settingChartset!!.setOnClickListener(this)
