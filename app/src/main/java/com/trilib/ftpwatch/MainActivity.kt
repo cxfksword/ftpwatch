@@ -1,6 +1,7 @@
 package com.trilib.ftpwatch
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
@@ -41,8 +42,6 @@ class MainActivity : BaseActivity() {
 
 
     }
-
-
 
 
 }

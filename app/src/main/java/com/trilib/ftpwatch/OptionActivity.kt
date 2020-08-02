@@ -12,6 +12,7 @@ import com.heytap.wearable.support.widget.HeyNumberPicker
 import com.heytap.wearable.support.widget.HeyTextView
 import com.heytap.wearable.support.widget.HeyToast
 import com.trilib.ftpwatch.fragment.SettingFragment
+import com.trilib.ftpwatch.utils.SettingManager
 
 
 class OptionActivity : BaseActivity(), HeyNumberPicker.OnValueChangeListener {
@@ -23,7 +24,6 @@ class OptionActivity : BaseActivity(), HeyNumberPicker.OnValueChangeListener {
 
         setContentView(R.layout.activity_option)
 
-        val settings = this.getSharedPreferences(Constants.PreferenceConsts.FILE_NAME, Context.MODE_PRIVATE);
 
         val titleBar = this.findViewById<HeyBackTitleBar>(R.id.option_titlebar)
         titleBar.setBackListener(null, this)
@@ -35,7 +35,7 @@ class OptionActivity : BaseActivity(), HeyNumberPicker.OnValueChangeListener {
         optionType = intent.getIntExtra(Constants.IntentDataKey.OPTION_TYPE, 0);
         when(optionType) {
             Constants.RequestCode.CHARSET -> {
-                val currentCharset = settings.getString(Constants.PreferenceConsts.CHARSET_TYPE, Constants.PreferenceConsts.CHARSET_TYPE_DEFAULT)
+                val currentCharset = SettingManager.build(this).getString(Constants.PreferenceConsts.CHARSET_TYPE, Constants.PreferenceConsts.CHARSET_TYPE_DEFAULT)
                 var currentIndex = Constants.Charset.STRING_ARRAY.indexOf(currentCharset)
                 if (currentIndex < 0) {
                     currentIndex =  0
@@ -48,12 +48,9 @@ class OptionActivity : BaseActivity(), HeyNumberPicker.OnValueChangeListener {
     }
 
     fun clickOk(v: View) {
-        val settings = this.getSharedPreferences(Constants.PreferenceConsts.FILE_NAME, Context.MODE_PRIVATE);
-        val editor = settings.edit()
         when(optionType) {
             Constants.RequestCode.CHARSET -> {
-                editor.putString(Constants.PreferenceConsts.CHARSET_TYPE, selectedValue)
-                editor.commit()
+                SettingManager.build(this).edit().putString(Constants.PreferenceConsts.CHARSET_TYPE, selectedValue).commit()
             }
         }
 

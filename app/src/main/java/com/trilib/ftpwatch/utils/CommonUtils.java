@@ -43,7 +43,7 @@ public class CommonUtils {
      */
     public static String getDisplayCharsetValue(@NonNull Context context){
         return context.getResources().getString(
-                Constants.Charset.CHAR_GBK.equals(getSettingSharedPreferences(context).getString(Constants.PreferenceConsts.CHARSET_TYPE,Constants.PreferenceConsts.CHARSET_TYPE_DEFAULT))?
+                Constants.Charset.CHAR_GBK.equals(SettingManager.build(context).getString(Constants.PreferenceConsts.CHARSET_TYPE,Constants.PreferenceConsts.CHARSET_TYPE_DEFAULT))?
                         R.string.setting_charset_gbk:R.string.setting_charset_utf
         );
     }
@@ -65,7 +65,7 @@ public class CommonUtils {
      * @return true-为匿名模式
      */
     public static boolean isAnonymousMode(@NonNull Context context){
-        return getSettingSharedPreferences(context).getBoolean(Constants.PreferenceConsts.ANONYMOUS_MODE,Constants.PreferenceConsts.ANONYMOUS_MODE_DEFAULT);
+        return SettingManager.build(context).getBoolean(Constants.PreferenceConsts.ANONYMOUS_MODE,Constants.PreferenceConsts.ANONYMOUS_MODE_DEFAULT);
     }
 
     /**
@@ -185,7 +185,7 @@ public class CommonUtils {
         Configuration config = resources.getConfiguration();
         //区别17版本（其实在17以上版本通过 config.locale设置也是有效的，不知道为什么还要区别）
         //在这里设置需要转换成的语言，也就是选择用哪个values目录下的strings.xml文件
-        int value= CommonUtils.getSettingSharedPreferences(context).getInt(Constants.PreferenceConsts.LANGUAGE_SETTING,Constants.PreferenceConsts.LANGUAGE_FOLLOW_SYSTEM);
+        int value= SettingManager.build(context).getInt(Constants.PreferenceConsts.LANGUAGE_SETTING,Constants.PreferenceConsts.LANGUAGE_FOLLOW_SYSTEM);
         Locale locale=null;
         switch (value){
             default:break;

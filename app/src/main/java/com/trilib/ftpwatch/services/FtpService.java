@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.PermissionChecker;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.trilib.ftpwatch.Constants;
@@ -30,17 +31,22 @@ import com.trilib.ftpwatch.R;
 import com.trilib.ftpwatch.data.AccountItem;
 import com.trilib.ftpwatch.utils.CommonUtils;
 import com.trilib.ftpwatch.utils.NetworkStatusMonitor;
+import com.trilib.ftpwatch.utils.SettingManager;
+import com.trilib.ftpwatch.utils.UploadFtplet;
 
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
 import org.apache.ftpserver.ftplet.Authority;
+import org.apache.ftpserver.ftplet.Ftplet;
 import org.apache.ftpserver.listener.ListenerFactory;
 import org.apache.ftpserver.usermanager.impl.BaseUser;
 import org.apache.ftpserver.usermanager.impl.WritePermission;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class FtpService extends Service implements NetworkStatusMonitor.NetworkStatusCallback {
     private static FtpServer server;//this static field is guarded by FtpService.class
@@ -53,6 +59,7 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
     public static final int MESSAGE_START_FTP_ERROR=-1;
     public static final int MESSAGE_WAKELOCK_ACQUIRE=5;
     public static final int MESSAGE_WAKELOCK_RELEASE=6;
+    public static final int MESSAGE_FTP_UPLOAD_END =7;
 
     private boolean isIgnoreAutoDisconnect=false;
 
@@ -67,7 +74,7 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
             stopSelf();
             return;
         }
-        final boolean isAnonymousMode=CommonUtils.getSettingSharedPreferences(this)
+        final boolean isAnonymousMode= SettingManager.build(this)
                 .getBoolean(Constants.PreferenceConsts.ANONYMOUS_MODE,Constants.PreferenceConsts.ANONYMOUS_MODE_DEFAULT);
         final List<AccountItem> accountItems= new ArrayList<AccountItem>();
         new Thread(new Runnable() {
@@ -110,7 +117,7 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
     @Override
     public void onNetworkDisconnected(NetworkStatusMonitor.NetworkType networkType) {
         if(isIgnoreAutoDisconnect) return;
-        int config= CommonUtils.getSettingSharedPreferences(this).getInt(Constants.PreferenceConsts.AUTO_STOP,Constants.PreferenceConsts.AUTO_STOP_DEFAULT);
+        int config= SettingManager.build(this).getInt(Constants.PreferenceConsts.AUTO_STOP,Constants.PreferenceConsts.AUTO_STOP_DEFAULT);
         switch (config){
             default:case Constants.PreferenceConsts.AUTO_STOP_NONE:return;
             case Constants.PreferenceConsts.AUTO_STOP_WIFI_DISCONNECTED:{
@@ -133,7 +140,11 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
      * @return true 启动成功
      */
     public static boolean startService(@NonNull Context context){
-        if(!beforeStartCheck(context)){
+        return startService(context, null);
+    }
+
+    public static boolean startService(@NonNull Context context, Fragment fragment){
+        if(!beforeStartCheck(context, fragment)){
             return false;
         }
         if(ftpService==null) {
@@ -150,20 +161,16 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
      * @return true - 检查正常  -false 账户错误或者没有权限
      */
     private static boolean beforeStartCheck(@NonNull Context context){
+        return beforeStartCheck(context, null);
+    }
+
+    private static boolean beforeStartCheck(@NonNull Context context, Fragment fragment) {
         if(Build.VERSION.SDK_INT>=23&& PermissionChecker.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PermissionChecker.PERMISSION_GRANTED){
-            if(context instanceof Activity){
+            if (fragment != null) {
+                fragment.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
+            } else if(context instanceof Activity){
                 final Activity activity=(Activity)context;
-//                Snackbar snackbar= Snackbar.make(activity.findViewById(android.R.id.content),activity.getResources().getString(R.string.permission_write_external),Snackbar.LENGTH_SHORT);
-//                snackbar.setAction(activity.getResources().getString(R.string.snackbar_action_goto), new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent appdetail = new Intent();
-//                        appdetail.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-//                        appdetail.setData(Uri.fromParts("package", activity.getApplication().getPackageName(), null));
-//                        activity.startActivity(appdetail);
-//                    }
-//                });
-//                snackbar.show();
+
                 activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
             }else{
                 Toast.makeText(context,context.getResources().getString(R.string.permission_write_external),Toast.LENGTH_SHORT).show();
@@ -218,6 +225,9 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
         ListenerFactory lfactory = new ListenerFactory();
         lfactory.setPort(settings.getInt(Constants.PreferenceConsts.PORT_NUMBER,Constants.PreferenceConsts.PORT_NUMBER_DEFAULT)); //设置端口号 非ROOT不可使用1024以下的端口
         factory.addListener("default", lfactory.createListener());
+        Map<String, Ftplet> ftpLets = new HashMap();
+        ftpLets.put("ftpService", new UploadFtplet());
+        factory.setFtplets(ftpLets);
 
         synchronized (FtpService.class) {
             try{
@@ -320,6 +330,13 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
                     }catch (Exception e){e.printStackTrace();}
                 }
                 break;
+                case MESSAGE_FTP_UPLOAD_END:{
+                    String filename = msg.obj.toString();
+                    for(OnFTPServiceStatusChangedListener listener:listeners){
+                        listener.onFTPServiceUploadEnd(filename);
+                    }
+                }
+                break;
             }
         }catch (Exception e){e.printStackTrace();}
     }
@@ -397,6 +414,7 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
         void onFTPServiceStartError(Exception e);
         void onRemainingSeconds(int seconds);
         void onFTPServiceDestroyed();
+        void onFTPServiceUploadEnd(String filepath);
     }
 
 

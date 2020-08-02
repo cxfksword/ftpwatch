@@ -1,12 +1,16 @@
 package com.trilib.ftpwatch.fragment
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.webkit.MimeTypeMap
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -21,7 +25,7 @@ import com.trilib.ftpwatch.services.FtpService
 import com.trilib.ftpwatch.utils.CommonUtils
 
 
-class FtpFragment : Fragment(), FtpService.OnFTPServiceStatusChangedListener, View.OnClickListener {
+class FtpFragment : Fragment(), FtpService.OnFTPServiceStatusChangedListener, View.OnClickListener{
 
     private var ftpStatus : TextView? = null
     private var ftpBtn : HeyGradientButton? = null
@@ -41,15 +45,15 @@ class FtpFragment : Fragment(), FtpService.OnFTPServiceStatusChangedListener, Vi
         ftpBtn =  v.findViewById<HeyGradientButton>(R.id.ftp_btn)
         ftpBtn!!.setOnClickListener(this)
         if (FtpService.isFTPServiceRunning()) {
+            // 假如wifi已被系统关闭，需要停止服务
+            if (!CommonUtils.isWifiConnected(context)) {
+                FtpService.stopService()
+            }
             refreshFtpStatus(true)
         }
         return v
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
     override fun onClick(v: View) {
         when (v.id) {
@@ -81,35 +85,75 @@ class FtpFragment : Fragment(), FtpService.OnFTPServiceStatusChangedListener, Vi
         refreshFtpStatus(true)
     }
 
+    override fun onFTPServiceUploadEnd(filepath: String?) {
+        if (!filepath.isNullOrEmpty()) {
+//            mediaScanner.scan(filepath);
+//            val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+//            intent.data = Uri.fromFile(File(filepath))
+//            context!!.sendBroadcast(intent)
+
+            scanMediaFile(filepath)
+        }
+    }
+
+    private fun scanMediaFile(filePath: String) {
+        // Tell the media scanner so it is available to the user.
+        val extension = getExtensionFromUrl(filePath)
+        val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+        if (mimeType.isNullOrEmpty())  {
+            return
+        }
+        MediaScannerConnection.scanFile(context, arrayOf(filePath), arrayOf(mimeType),
+            object : MediaScannerConnection.OnScanCompletedListener {
+                override fun onScanCompleted(
+                    path: String?,
+                    uri: Uri?
+                ) {
+                }
+            })
+    }
+
+    private fun getExtensionFromUrl(url: String): String? {
+        var ext = ""
+        val i = url.lastIndexOf('.')
+        if (i > 0) {
+            ext = url.substring(i + 1)
+        }
+        return ext.toLowerCase()
+    }
+
     override fun onFTPServiceStartError(e: Exception?) {
         HeyToast.showToast(context, context?.getString(R.string.notification_ftp_start_error_title) + e?.message , Toast.LENGTH_SHORT);
     }
 
     private fun startFtp() {
-        if (!FtpService.isFTPServiceRunning()) {
-            if (!CommonUtils.isWifiConnected(context)) {
-                val builder: HeyBuilder = HeyBuilder(context)
-                builder.setContentViewStyle(HeyDialog.STYLE_CONTENT) //设置对话框样式，不含标题
-                        .setMessage(context!!.getString(R.string.storage_permission_content))
-                        .setButtonOrientation(LinearLayout.HORIZONTAL) //设置按钮方向
-                        .setNegativeButton(context!!.getString(R.string.action_cancel), null)
-                        .setPositiveButton(context!!.getString(R.string.dialog_action_goto),
-                            View.OnClickListener {
-                                var intent =  Intent()
-                                intent.action = Settings.ACTION_WIFI_SETTINGS
-                                startActivity(intent)
-                            })
-                val dialog = builder.create()
-                dialog.show()
-                return
-            }
-            showProgress()
-
-
-            if (FtpService.startService(context!!)) {
-                ftpStatus!!.text = resources.getString(R.string.attention_opening_ftp)
-            }
+        if (FtpService.isFTPServiceRunning()) {
+            return
         }
+
+        if (!CommonUtils.isWifiConnected(context)) {
+            val builder: HeyBuilder = HeyBuilder(context)
+            builder.setContentViewStyle(HeyDialog.STYLE_CONTENT) //设置对话框样式，不含标题
+                    .setMessage(context!!.getString(R.string.wifi_permission_content))
+                    .setButtonOrientation(LinearLayout.HORIZONTAL) //设置按钮方向
+                    .setNegativeButton(context!!.getString(R.string.action_cancel), null)
+                    .setPositiveButton(context!!.getString(R.string.dialog_action_goto),
+                        View.OnClickListener {
+                            var intent =  Intent()
+                            intent.action = Settings.ACTION_WIFI_SETTINGS
+                            startActivity(intent)
+                        })
+            val dialog = builder.create()
+            dialog.show()
+            return
+        }
+        showProgress()
+
+        // 传fragment是为了响应权限操作事件onRequestPermissionsResult
+        if (FtpService.startService(context!!, this)) {
+            ftpStatus!!.text = resources.getString(R.string.attention_opening_ftp)
+        }
+
     }
 
     private fun closeFtp() {
@@ -156,4 +200,17 @@ class FtpFragment : Fragment(), FtpService.OnFTPServiceStatusChangedListener, Vi
 
         FtpService.removeOnFtpServiceStatusChangedListener(this);
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // 授权后，自动打开 ftp服务
+            startFtp()
+        }
+    }
+
 }

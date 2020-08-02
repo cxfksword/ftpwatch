@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.heytap.wearable.support.widget.HeyBackTitleBar
 import com.heytap.wearable.support.widget.HeyToast
 import com.trilib.ftpwatch.fragment.SettingFragment
+import com.trilib.ftpwatch.utils.SettingManager
 import java.lang.Exception
 
 class PortEditActivity : BaseActivity() {
@@ -23,8 +24,7 @@ class PortEditActivity : BaseActivity() {
         val backTitleBar = this.findViewById<HeyBackTitleBar>(R.id.back_titlebar)
         backTitleBar.setBackListener(null, this)
 
-        val settings = this.getSharedPreferences(Constants.PreferenceConsts.FILE_NAME, Context.MODE_PRIVATE);
-        val currentPort = settings.getInt(Constants.PreferenceConsts.PORT_NUMBER, Constants.PreferenceConsts.PORT_NUMBER_DEFAULT)
+        val currentPort = SettingManager.build(this).getInt(Constants.PreferenceConsts.PORT_NUMBER, Constants.PreferenceConsts.PORT_NUMBER_DEFAULT)
         inputPort = this.findViewById<EditText>(R.id.input_port)
         inputPort!!.setText(currentPort.toString())
     }
@@ -43,10 +43,7 @@ class PortEditActivity : BaseActivity() {
                 return
             }
         }
-        val settings = this.getSharedPreferences(Constants.PreferenceConsts.FILE_NAME, Context.MODE_PRIVATE);
-        val editor = settings.edit()
-        editor.putInt(Constants.PreferenceConsts.PORT_NUMBER, port)
-        editor.commit()
+        SettingManager.build(this).edit().putInt(Constants.PreferenceConsts.PORT_NUMBER, port).commit()
 
 
         // 返回上一Activity

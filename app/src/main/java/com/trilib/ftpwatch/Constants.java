@@ -76,7 +76,7 @@ public class Constants {
         public static final int AUTO_STOP_WIFI_DISCONNECTED=0;
         public static final int AUTO_STOP_AP_DISCONNECTED=1;
         public static final int AUTO_STOP_TIME_COUNT=2;
-        public static final int AUTO_STOP_DEFAULT=AUTO_STOP_NONE;
+        public static final int AUTO_STOP_DEFAULT=AUTO_STOP_WIFI_DISCONNECTED;
         /**
          * int value
          */

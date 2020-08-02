@@ -13,6 +13,7 @@ import com.heytap.wearable.support.widget.HeyMultipleDefaultItem
 import com.heytap.wearable.support.widget.HeySingleDefaultItem
 import com.heytap.wearable.support.widget.HeyToast
 import com.trilib.ftpwatch.*
+import com.trilib.ftpwatch.utils.SettingManager
 
 class SettingFragment : Fragment(), View.OnClickListener {
 
@@ -31,9 +32,9 @@ class SettingFragment : Fragment(), View.OnClickListener {
         settingChartset = v.findViewById<HeyMultipleDefaultItem>(R.id.settting_charset)
         settingAbout = v.findViewById<HeySingleDefaultItem>(R.id.about)
 
-        val settings = context!!.getSharedPreferences(Constants.PreferenceConsts.FILE_NAME, Context.MODE_PRIVATE);
-        settingPort!!.summaryTextView.text = settings.getInt(Constants.PreferenceConsts.PORT_NUMBER, Constants.PreferenceConsts.PORT_NUMBER_DEFAULT).toString()
-        settingChartset!!.summaryTextView.text = settings.getString(Constants.PreferenceConsts.CHARSET_TYPE, Constants.PreferenceConsts.CHARSET_TYPE_DEFAULT)
+        val settingMgr = SettingManager.build(context!!);
+        settingPort!!.summaryTextView.text = settingMgr.getInt(Constants.PreferenceConsts.PORT_NUMBER, Constants.PreferenceConsts.PORT_NUMBER_DEFAULT).toString()
+        settingChartset!!.summaryTextView.text = settingMgr.getString(Constants.PreferenceConsts.CHARSET_TYPE, Constants.PreferenceConsts.CHARSET_TYPE_DEFAULT)
 
         settingPort!!.setOnClickListener(this)
         settingChartset!!.setOnClickListener(this)

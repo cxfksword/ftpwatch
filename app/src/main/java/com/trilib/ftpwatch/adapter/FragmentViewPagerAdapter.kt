@@ -8,7 +8,7 @@ import com.trilib.ftpwatch.fragment.FtpFragment
 import com.trilib.ftpwatch.fragment.SettingFragment
 import com.trilib.ftpwatch.R
 
-class FragmentViewPagerAdapter(ctx: Context, fm: FragmentManager): FragmentPagerAdapter(fm)
+class FragmentViewPagerAdapter(ctx: Context, fm: FragmentManager): FragmentPagerAdapter(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
 {
     private var context: Context? = ctx
 

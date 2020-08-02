@@ -40,7 +40,7 @@
         Copyright (C) 2020 by cxfksword \n\n
     </string>
 
-    <string name="storage_permission_content">
+    <string name="wifi_permission_content">
         当前 wifi 功能是关闭状态，请先前往设置打开 wifi 功能
     </string>
     <string name="dialog_action_goto">前往设置</string>
