@@ -1,4 +1,6 @@
 # ftpwatch
 A simple ftp app for oppo watch
 
-![screenshot1](doc/screenshot1.png)![screenshot2](doc/screenshot2.png)![screenshot3](doc/screenshot3.png)
+
+## preview
+<img src="doc/screenshot1.png" width="200"><img src="doc/screenshot2.png" width="200"><img src="doc/screenshot3.png" width="200">
