@@ -32,12 +32,12 @@
     
     <string name="about_content">
         ftpwatch是一个Android平台上实现FTP文件共享的应用，专门为Android手表做了优化。\n\n
-        <a href='https://github.com/ghmxr/ftpshare'>ftpshare</a>是Github上一款使用GPLv3许可的开源项目，ftpwatch是基于些项目进行简化开发的。\n\n
+        <a href='https://github.com/ghmxr/ftpshare'>ftpshare</a>是Github上一款使用GPLv3许可的开源项目，ftpwatch是基于此项目进行简化开发的。\n\n
 
         开源地址:\n
         <a href='https://github.com/cxfksword/ftpwatch'>https://github.com/cxfksword/ftpwatch</a> \n\n
 
-        Copyright (C) 2020 by cxfksword \n\n
+        Copyright (C) 2020 by vento \n\n
     </string>
 
     <string name="wifi_permission_content">

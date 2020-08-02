@@ -3,6 +3,7 @@ package com.trilib.ftpwatch
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.heytap.wearable.support.widget.pageindicator.HeyPageIndicator
@@ -14,6 +15,9 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 是否隐藏android标题栏
+//        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main)
 
         initView()
