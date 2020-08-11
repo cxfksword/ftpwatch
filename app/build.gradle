@@ -11,7 +11,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
-        versionName "0.1.4"
+        versionName "0.1.5"
 
     }
 
@@ -64,5 +64,4 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
-
 }

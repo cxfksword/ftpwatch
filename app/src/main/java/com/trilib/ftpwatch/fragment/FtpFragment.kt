@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +24,8 @@ import com.heytap.wearable.support.widget.HeyToast
 import com.trilib.ftpwatch.R
 import com.trilib.ftpwatch.services.FtpService
 import com.trilib.ftpwatch.utils.CommonUtils
+import com.trilib.ftpwatch.utils.MediaScanner
+import java.io.File
 
 
 class FtpFragment : Fragment(), FtpService.OnFTPServiceStatusChangedListener, View.OnClickListener{
@@ -52,6 +55,18 @@ class FtpFragment : Fragment(), FtpService.OnFTPServiceStatusChangedListener, Vi
             refreshFtpStatus(true)
         }
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (FtpService.isFTPServiceRunning()) {
+            // 假如wifi已被系统关闭，需要停止服务
+            if (!CommonUtils.isWifiConnected(context)) {
+                FtpService.stopService()
+            }
+            refreshFtpStatus(true)
+        }
     }
 
 
@@ -92,26 +107,11 @@ class FtpFragment : Fragment(), FtpService.OnFTPServiceStatusChangedListener, Vi
 //            intent.data = Uri.fromFile(File(filepath))
 //            context!!.sendBroadcast(intent)
 
-            scanMediaFile(filepath)
+            val rootPath = Environment.getExternalStorageDirectory().absolutePath
+            MediaScanner(context!!).scanFilesSimply(File(rootPath + filepath))
         }
     }
 
-    private fun scanMediaFile(filePath: String) {
-        // Tell the media scanner so it is available to the user.
-        val extension = getExtensionFromUrl(filePath)
-        val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
-        if (mimeType.isNullOrEmpty())  {
-            return
-        }
-        MediaScannerConnection.scanFile(context, arrayOf(filePath), arrayOf(mimeType),
-            object : MediaScannerConnection.OnScanCompletedListener {
-                override fun onScanCompleted(
-                    path: String?,
-                    uri: Uri?
-                ) {
-                }
-            })
-    }
 
     private fun getExtensionFromUrl(url: String): String? {
         var ext = ""
