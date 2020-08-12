@@ -11,8 +11,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.heytap.wearable.support.widget.HeyMultipleDefaultItem
 import com.heytap.wearable.support.widget.HeySingleDefaultItem
+import com.heytap.wearable.support.widget.HeySingleItemWithSwitch
 import com.heytap.wearable.support.widget.HeyToast
 import com.trilib.ftpwatch.*
+import com.trilib.ftpwatch.services.FtpService
 import com.trilib.ftpwatch.utils.CommonUtils
 import com.trilib.ftpwatch.utils.SettingManager
 
@@ -21,6 +23,7 @@ class SettingFragment : Fragment(), View.OnClickListener {
     private var settingPort : HeyMultipleDefaultItem? = null
     private var settingChartset : HeyMultipleDefaultItem? = null
     private var settingAbout : HeyMultipleDefaultItem? = null
+    private var setttingHiddenFiles : HeySingleItemWithSwitch? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,15 +35,18 @@ class SettingFragment : Fragment(), View.OnClickListener {
         settingPort = v.findViewById<HeyMultipleDefaultItem>(R.id.setting_port)
         settingChartset = v.findViewById<HeyMultipleDefaultItem>(R.id.settting_charset)
         settingAbout = v.findViewById<HeyMultipleDefaultItem>(R.id.about)
+        setttingHiddenFiles = v.findViewById<HeySingleItemWithSwitch>(R.id.setting_hidden_files)
 
         val settingMgr = SettingManager.build(context!!);
         settingPort!!.summaryTextView.text = settingMgr.getInt(Constants.PreferenceConsts.PORT_NUMBER, Constants.PreferenceConsts.PORT_NUMBER_DEFAULT).toString()
         settingChartset!!.summaryTextView.text = settingMgr.getString(Constants.PreferenceConsts.CHARSET_TYPE, Constants.PreferenceConsts.CHARSET_TYPE_DEFAULT)
         settingAbout!!.summaryTextView.text = "v" + CommonUtils.getAppVersionName(context!!)
+        setttingHiddenFiles!!.heySwitch.isChecked = settingMgr.getBoolean(Constants.PreferenceConsts.SHOW_HIDDEN_FILES, Constants.PreferenceConsts.SHOW_HIDDEN_FILES_DEFAULT)
 
         settingPort!!.setOnClickListener(this)
         settingChartset!!.setOnClickListener(this)
         settingAbout!!.setOnClickListener(this)
+        setttingHiddenFiles!!.heySwitch.setOnClickListener(this)
         return v
     }
 
@@ -59,6 +65,10 @@ class SettingFragment : Fragment(), View.OnClickListener {
                 startActivityForResult(intent, Constants.RequestCode.CHARSET)
             }
             R.id.about -> startActivity(Intent(context, AboutActivity::class.java))
+            setttingHiddenFiles!!.heySwitch.id -> {
+                SettingManager.build(context).edit().putBoolean(Constants.PreferenceConsts.SHOW_HIDDEN_FILES, setttingHiddenFiles!!.heySwitch.isChecked).commit()
+                FtpService.updateShowHiddenFiles(setttingHiddenFiles!!.heySwitch.isChecked)
+            }
         }
     }
 

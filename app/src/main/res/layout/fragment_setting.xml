@@ -25,7 +25,14 @@
             app:heyPrimaryImage="@drawable/hey_arrow"
         />
 
+        <com.heytap.wearable.support.widget.HeySingleItemWithSwitch
+            android:id="@+id/setting_hidden_files"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:heyText="显示隐藏文件"/>
+
         <com.heytap.wearable.support.widget.HeyMultipleDefaultItem
+            android:visibility="gone"
             android:id="@+id/settting_charset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

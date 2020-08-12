@@ -36,6 +36,7 @@ import com.trilib.ftpwatch.utils.UploadFtplet;
 
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
+import org.apache.ftpserver.command.impl.listing.DirectoryLister;
 import org.apache.ftpserver.ftplet.Authority;
 import org.apache.ftpserver.ftplet.Ftplet;
 import org.apache.ftpserver.listener.ListenerFactory;
@@ -229,6 +230,9 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
         ftpLets.put("ftpService", new UploadFtplet());
         factory.setFtplets(ftpLets);
 
+        // 是否显示隐藏文件
+        updateShowHiddenFiles(settings.getBoolean(Constants.PreferenceConsts.SHOW_HIDDEN_FILES,Constants.PreferenceConsts.SHOW_HIDDEN_FILES_DEFAULT));
+
         synchronized (FtpService.class) {
             try{
                 if(server!=null) server.stop();
@@ -399,6 +403,11 @@ public class FtpService extends Service implements NetworkStatusMonitor.NetworkS
 
     public static boolean isFTPServiceRunning(){
         return ftpService!=null&&server!=null&&!server.isStopped();
+    }
+
+    public static void updateShowHiddenFiles(boolean isShow) {
+        // 是否显示隐藏文件
+        DirectoryLister.isShowHiddenFile = isShow;
     }
 
     public static String getFTPStatusDescription(Context context){

@@ -9,16 +9,6 @@ public class Constants {
     public static class IntentDataKey {
         public static final String OPTION_TYPE = "option_type";
     }
-    public static class SQLConsts{
-        public static final String SQL_USERS_FILENAME ="ftp_accounts.db";
-        public static final int SQL_VERSION=1;
-        public static final String TABLE_NAME="ftp_account_table";
-        public static final String COLUMN_ID="_id";
-        public static final String COLUMN_ACCOUNT_NAME="name";
-        public static final String COLUMN_PASSWORD="password";
-        public static final String COLUMN_PATH ="path";
-        public static final String COLUMN_WRITABLE ="writable";
-    }
     public static class FTPConsts{
         public static final String NAME_ANONYMOUS="anonymous";
     }
@@ -58,11 +48,6 @@ public class Constants {
         /**
          * int value
          */
-        public static final String NIGHT_MODE="night_mode";
-        public static final int NIGHT_MODE_DEFAULT= AppCompatDelegate.MODE_NIGHT_NO;
-        /**
-         * int value
-         */
         public static final String LANGUAGE_SETTING="language_setting";
         public static final int LANGUAGE_FOLLOW_SYSTEM=0;
         public static final int LANGUAGE_SIMPLIFIED_CHINESE=1;
@@ -83,7 +68,8 @@ public class Constants {
         public static final String AUTO_STOP_VALUE="auto_stop_value";
         public static final int AUTO_STOP_VALUE_DEFAULT=600;
 
-
+        public static final String SHOW_HIDDEN_FILES="show_hidden_files";
+        public static final boolean SHOW_HIDDEN_FILES_DEFAULT=false;
     }
 
     public static class Charset{

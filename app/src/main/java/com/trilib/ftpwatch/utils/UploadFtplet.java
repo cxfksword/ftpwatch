@@ -13,7 +13,10 @@ import org.apache.ftpserver.ftplet.FtpletResult;
 import java.io.IOException;
 
 public class UploadFtplet extends DefaultFtplet {
-
+    @Override
+    public FtpletResult beforeCommand(FtpSession session, FtpRequest request) throws FtpException, IOException {
+        return super.beforeCommand(session, request);
+    }
 
     @Override
     public FtpletResult onUploadEnd(FtpSession session, FtpRequest request)
