@@ -1,1 +1,2 @@
 app/src/main/java/org/** linguist-vendored
+*.java linguist-vendored
