@@ -1,1 +1,5 @@
-app/src/main/java/org/*.java linguist-vendored
+app/src/main/java/org/apache/ftpserver/* linguist-vendored
+app/src/main/java/org/apache/ftpserver/** linguist-vendored
+app/src/main/java/org/apache/ftpserver/*** linguist-vendored
+app/src/main/java/org/apache/ftpserver/**** linguist-vendored
+app/src/main/java/org/apache/ftpserver/***** linguist-vendored
