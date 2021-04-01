@@ -1,8 +1,1 @@
-app/src/main/java/org/apache/* linguist-vendored
-app/src/main/java/org/apache/ftpserver/command/** linguist-vendored
-app/src/main/java/org/apache/ftpserver/util/* linguist-vendored
-app/src/main/java/org/apache/ftpserver/listener/* linguist-vendored
-app/src/main/java/org/apache/ftpserver/listener/** linguist-vendored
-app/src/main/java/org/apache/ftpserver/usermanager/** linguist-vendored
-app/src/main/java/org/apache/ftpserver/ssl/** linguist-vendored
-app/src/main/java/org/apache/ftpserver/main/* linguist-vendored
+app/src/main/java/org/apache linguist-vendored
