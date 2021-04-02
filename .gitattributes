@@ -1,2 +1,9 @@
-app/src/main/java/org/apache/**/* linguist-vendored
-doc/* linguist-vendored
+*.java linguist-vendored
+app/src/main/java/com/trilib/ftpwatch/services/FtpService.java -linguist-vendored
+app/src/main/java/com/trilib/ftpwatch/data/AccountItem.java -linguist-vendored
+app/src/main/java/com/trilib/ftpwatch/utils/NetworkEnvironmentUtil.java -linguist-vendored
+app/src/main/java/com/trilib/ftpwatch/utils/NetworkStatusMonitor.java -linguist-vendored
+app/src/main/java/com/trilib/ftpwatch/utils/SettingManager.java -linguist-vendored
+app/src/main/java/com/trilib/ftpwatch/utils/StorageUtil.java -linguist-vendored
+app/src/main/java/com/trilib/ftpwatch/utils/UploadFtplet.java -linguist-vendored
+doc/** linguist-vendored
