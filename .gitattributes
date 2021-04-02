@@ -1,4 +1,2 @@
 *.java linguist-vendored
 app/src/main/java/com/trilib/ftpwatch/services/* -linguist-vendored
-app/src/main/java/com/trilib/ftpwatch/data/* -linguist-vendored
-app/src/main/java/com/trilib/ftpwatch/utils/* -linguist-vendored
