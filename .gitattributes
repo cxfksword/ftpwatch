@@ -1,1 +1,2 @@
-doc/* linguist-vendored
+*.java linguist-vendored
+doc/** linguist-vendored
